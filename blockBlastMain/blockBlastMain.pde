@@ -5,3 +5,6 @@ void setup() {
 void draw() {
   background(220);
 }
+
+void block(){  // object for first block
+}
