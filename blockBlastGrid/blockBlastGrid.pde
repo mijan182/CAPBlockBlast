@@ -15,7 +15,7 @@ class grid {
   boolean[][] gridarray;
 
 
-  //Construction
-
+  //Constructor
+  grid(int temp)
 
 }
