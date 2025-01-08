@@ -1,13 +1,14 @@
-import com.sun.tools.jdi.JDWP.ArrayReference.Length;
 grid g;
 
 void setup() {
-  size(1300, 400);
+  size(500, 800);
   g = new grid (10,10);
 }
 
 void draw() {
-  background(100);
+  background(220);
+  stroke(0);
+  fill(209);
   g.displayGrid();
 }
 
@@ -24,7 +25,6 @@ class grid {
 
   for (int y = 0; y < ROWS; y++) {
     for (int x = 0; x < COLS; x++) {
-      gridarray[y][x] = false;
       }
     }
   }
@@ -36,13 +36,14 @@ class grid {
       for (int x = 0; x < COLS; x++) {
       }
       
-      int cellLength = length / COLS;
+      int cellWidth = width / COLS;
       int cellHeight = height / ROWS;
       
+      //Starts drawing from top left corner of Rect
+      rect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+      }
       
     }
     
-  }
-  
   
 }
