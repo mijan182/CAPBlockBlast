@@ -15,7 +15,12 @@ ROWS = 10;
 }
   
 void draw() {
-   background(255); // Background set to white
+   float cx = width / 2;
+   float cy = height / 2;
+   
+   //Definign start & end colors for gradient
+   color startColor = color (255, 165, 0);
+   color endColor = color (0, 0, 255);
    
    int offsetX = (width - COLS * videoScale) / 2; //Horizontal aspect
    int offsetY = (height - ROWS * videoScale) / 2; //Vertical aspect
@@ -25,9 +30,20 @@ void draw() {
     //Loop for rows
     for (int r = 0; r < ROWS; r++) {
       
-      //Drawing a rectangle at (x,y)
+       //Drawing a rectangle at (x,y)
       int x = offsetX + c * videoScale;
       int y = offsetY + r * videoScale;
+      
+      //Distance from setup center
+      float d = dist(x, y, cx, cy);
+      
+      float interAmount = map(d, 0, width / 2, 0, 1);
+      
+      color interColor = lerpColor(startColor, endColor, interAmount);
+      
+      stroke(interColor);
+      point(x, y);
+      
       fill(255, 200, 200); // Fill color for squares set to pink
       stroke(0); // Border color set to black
       
