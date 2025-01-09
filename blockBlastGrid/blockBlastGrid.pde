@@ -1,6 +1,6 @@
 //Size of each square in the grid, to the ratio of window to video size
 //Width and Height of 8 pixels
-int videoScale = 16;
+int videoScale = 40;
 
 //Represents the number of columns and rows in the grid
 int COLS, ROWS;
@@ -10,7 +10,7 @@ void setup() {
 
 //Columns and Rows
 COLS = 8;
-ROWS = 12;
+ROWS = 10;
 
 }
   
@@ -36,8 +36,4 @@ void draw() {
       }
     }
   }
-  
-  
-//  //Columns and Rows
-//COLS = width/videoScale;
-//ROWS = height/videoScale;
+ 
