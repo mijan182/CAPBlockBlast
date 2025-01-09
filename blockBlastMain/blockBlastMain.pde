@@ -4,8 +4,11 @@ ArrayList<Block> blocks; //stores blocks in a list
 void setup() {
   size(500,800); //canvas size
   blocks = new ArrayList<Block>(); //new arraylist to hold blocks
-  blocks.add(new Block(width / 2 - 50, height / 2 - 25, 100, 50)); 
-  blocks.add(new Block(100, 100, 100, 50));
+  blocks.add(new Block(100, 100, 100, 50)); //2 by 1
+  blocks.add(new Block (100,100,100,100)); //2 by2
+  blocks.add(new Block (50, 50, 50,50)); //simple square 1 by 1
+  blocks.add(new Block (200, 200,200,50)); // long block hori
+  blocks.add(new Block (200, 200,50,200)); //long block vert
 
 }
 
@@ -49,6 +52,7 @@ void mouseReleased(){
 class Block { //different class for the block
   int x, y, width, height; //variables to store pos and size of block
   boolean isDragging = false; //flag to indicate if its being dragged
+  boolean isColliding = true; //collision flag
   int offsetX, offsetY; //offset between the mouse pointer and block's top left corner during draggign
 
   Block(int x, int y, int width, int height) { 
@@ -58,6 +62,7 @@ class Block { //different class for the block
     this.width = width;
     this.height = height;
   }
+  
 
   void display() { //renders blocks
     fill(100, 150, 200); //block color (for now)
@@ -68,6 +73,16 @@ class Block { //different class for the block
     return mouseX >= x && mouseX <= x + width && 
            mouseY >= y && mouseY <= y + height;
   }
+  
+  //boolean isColliding(){
+  // return  
+  //}
+  
+  //void collision(){
+  //  if (isColliding){
+  //    fill(255);
+  //  }
+  //}
 
   void startDragging() { //starts dragging when clicked
     isDragging = true; //sets dragging to true
@@ -84,5 +99,13 @@ class Block { //different class for the block
 
   void stopDragging() { //stops dragging when mouse released
     isDragging = false;
+    
   }
+  
+}
+
+class Lblock { //l blocks
+}
+
+class Tblock { //T block
 }
