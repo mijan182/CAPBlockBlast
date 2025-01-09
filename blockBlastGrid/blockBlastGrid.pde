@@ -26,8 +26,8 @@ void draw() {
     for (int r = 0; r < ROWS; r++) {
       
       //Drawing a rectangle at (x,y)
-      int x = c * videoScale;
-      int y = r * videoScale;
+      int x = offsetX + c * videoScale;
+      int y = offsetY + r * videoScale;
       fill(255, 200, 200); // Fill color for squares set to pink
       stroke(0); // Border color set to black
       
