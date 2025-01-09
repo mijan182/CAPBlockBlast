@@ -17,6 +17,8 @@ ROWS = 12;
 void draw() {
    background(255); // Background set to white
    
+   int offsetX = (width - COLS * videoScale) / 2; //Horizontal aspect
+   int offsetY = (height - ROWS * videoScale) / 2; //Vertical aspect
 
   //Loop for columns
   for (int c = 0; c < COLS; c++) {
