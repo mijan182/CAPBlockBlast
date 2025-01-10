@@ -1,6 +1,7 @@
 
 ArrayList<Block> blocks; //stores blocks in a list
 
+
 void setup() {
   size(500,800); //canvas size
   blocks = new ArrayList<Block>(); //new arraylist to hold blocks
@@ -18,6 +19,8 @@ void draw() {
   for( Block block : blocks){ 
     block.display(); //calls block's display method
   }
+  
+  
 }
 
 void mousePressed(){
@@ -104,8 +107,62 @@ class Block { //different class for the block
   
 }
 
-class Lblock { //l blocks
+class otherBlocks { //l blocks
+  PShape  s, s2, s3;
+  
+  void Lshape(){
+  s = createShape(); //first L shape
+  s.beginShape();
+  s.fill(0, 0, 255);
+  s.noStroke();
+  s.vertex(0, 0);
+  s.vertex(0, 50);
+  s.vertex(50, 50);
+  s.vertex(50, 0);
+  
+  s.vertex(50, 50);
+  s.vertex(50, 100);
+  s.vertex(100, 100);
+  s.vertex(100, 0);
+  s.endShape(CLOSE);
+  
+    s2 = createShape(); //second L shape
+    s2.beginShape();
+    s2.fill(100,0,200);
+    s2.noStroke();
+    s2.vertex(0, 0);
+    s2.vertex(50, 0);
+    s2.vertex(50, 50);
+    s2.vertex(0, 50);
+    
+    s2.vertex(50, 50);
+    s2.vertex(100,50);
+    s2.vertex(100, 100);
+    s2.vertex(0,100);
+    s2.endShape(CLOSE);
+  
+      s3 =createShape(); //third L shape
+      s3.beginShape();
+      s3.fill(100,0,200);
+      s3.noStroke();
+      s3.vertex(0, 0);
+      s3.vertex(50, 0);
+      s3.vertex(50, 50);
+      s3.vertex(0, 50);
+      
+      s3.vertex(50, 50);
+      s3.vertex(100,50);
+      s3.vertex(100, 100);
+      s3.vertex(0,100);
+      s3.endShape(CLOSE);
+  
 }
 
-class Tblock { //T block
-}
+
+  }
+  
+  //void Ldisplay(){
+  //  shape(s,50,50);
+  //  shape(s2, 200,500);
+  //  shape(s3, 200,300);
+  //}
