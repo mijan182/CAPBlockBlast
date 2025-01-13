@@ -10,6 +10,7 @@ void setup() {
   blocks.add(new Block (50, 50, 50,50)); //simple square 1 by 1
   blocks.add(new Block (200, 200,200,50)); // long block hori
   blocks.add(new Block (200, 200,50,200)); //long block vert
+  blocks.add(new LBlock(300,300));
 
 }
 
@@ -77,15 +78,13 @@ class Block { //different class for the block
            mouseY >= y && mouseY <= y + height;
   }
   
-  //boolean isColliding(){
-  // return  
-  //}
-  
-  //void collision(){
-  //  if (isColliding){
-  //    fill(255);
-  //  }
-  //}
+boolean isCollidingWith(Block other) {
+  return !(x + width <= other.x ||  // This block is to the left of the other
+           x >= other.x + other.width ||  // This block is to the right
+           y + height <= other.y ||  // This block is above
+           y >= other.y + other.height);  // This block is below
+}
+
 
   void startDragging() { //starts dragging when clicked
     isDragging = true; //sets dragging to true
@@ -95,8 +94,21 @@ class Block { //different class for the block
 
   void drag() {
     if (isDragging) { //updates block location/pos while dragging
+      int prevX = x;
+      int prevY = y;
+      
       x = mouseX - offsetX; 
       y = mouseY - offsetY;
+      
+      for (Block other : blocks) {
+      if (this != other && isCollidingWith(other)) {
+        // If colliding, revert to the previous position
+        x = prevX;
+        y = prevY;
+        break;
+      }
+    }
+      
     }
   }
 
@@ -107,62 +119,20 @@ class Block { //different class for the block
   
 }
 
-class otherBlocks { //l blocks
-  PShape  s, s2, s3;
-  
-  void Lshape(){
-  s = createShape(); //first L shape
-  s.beginShape();
-  s.fill(0, 0, 255);
-  s.noStroke();
-  s.vertex(0, 0);
-  s.vertex(0, 50);
-  s.vertex(50, 50);
-  s.vertex(50, 0);
-  
-  s.vertex(50, 50);
-  s.vertex(50, 100);
-  s.vertex(100, 100);
-  s.vertex(100, 0);
-  s.endShape(CLOSE);
-  
-    s2 = createShape(); //second L shape
-    s2.beginShape();
-    s2.fill(100,0,200);
-    s2.noStroke();
-    s2.vertex(0, 0);
-    s2.vertex(50, 0);
-    s2.vertex(50, 50);
-    s2.vertex(0, 50);
-    
-    s2.vertex(50, 50);
-    s2.vertex(100,50);
-    s2.vertex(100, 100);
-    s2.vertex(0,100);
-    s2.endShape(CLOSE);
-  
-      s3 =createShape(); //third L shape
-      s3.beginShape();
-      s3.fill(100,0,200);
-      s3.noStroke();
-      s3.vertex(0, 0);
-      s3.vertex(50, 0);
-      s3.vertex(50, 50);
-      s3.vertex(0, 50);
-      
-      s3.vertex(50, 50);
-      s3.vertex(100,50);
-      s3.vertex(100, 100);
-      s3.vertex(0,100);
-      s3.endShape(CLOSE);
-  
-}
-
-
+class LBlock extends Block {
+  LBlock(int x, int y) {
+    super(x, y, 100, 100); // Base width and height for an L-shaped block
   }
-  
-  //void Ldisplay(){
-  //  shape(s,50,50);
-  //  shape(s2, 200,500);
-  //  shape(s3, 200,300);
-  //}
+
+  @Override
+  void display() {
+    
+    fill(0, 0, 255); // Blue color for the LBlock
+
+    // Draw the vertical part of the L
+    rect(x, y, width / 2, height); 
+
+    // Draw the horizontal part of the L
+    rect(x, y + height / 2, width, height / 2);
+  }
+}
