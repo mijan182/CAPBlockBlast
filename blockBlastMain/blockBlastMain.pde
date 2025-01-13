@@ -1,28 +1,72 @@
 
 ArrayList<Block> blocks; //stores blocks in a list
 
+int videoScale = 40;
+int COLS, ROWS;
+
 
 void setup() {
   size(500,800); //canvas size
   blocks = new ArrayList<Block>(); //new arraylist to hold blocks
-  blocks.add(new Block(100, 100, 100, 50)); //2 by 1
-  blocks.add(new Block (100,100,100,100)); //2 by2
-  blocks.add(new Block (50, 50, 50,50)); //simple square 1 by 1
-  blocks.add(new Block (200, 200,200,50)); // long block hori
-  blocks.add(new Block (200, 200,50,200)); //long block vert
-  blocks.add(new LBlock(300,300));
+  blocks.add(new Block(80, 80, 80, 40)); //2 by 1
+  blocks.add(new Block (80,80,80,80)); //2 by2
+  blocks.add(new Block (40, 40, 40,40)); //simple square 1 by 1
+  blocks.add(new Block (160, 160,160,40)); // long block hori
+  blocks.add(new Block (160, 160,40,160)); //long block vert
+  blocks.add(new LBlock(250,300));
+  
+  COLS = 8;
+  ROWS = 10;
 
 }
 
 void draw() {
   background(220);
+  float Gcx = width / 2;
+  float Gcy = height / 2;
   
+  color startColor = color (255, 165, 0);
+  color endColor = color (0, 0, 255);
+  
+  int gOffsetX = (width - COLS * videoScale) / 2; //Horizontal aspect
+  int gOffsetY = (height - ROWS * videoScale) / 2; //Vertical aspect
+  
+  for (int c = 0; c < COLS; c++) {
+    //Loop for rows
+    for (int r = 0; r < ROWS; r++) {
+      
+       //Drawing a rectangle at (x,y)
+      int x = gOffsetX + c * videoScale;
+      int y = gOffsetY + r * videoScale;
+      
+      //Distance from setup center
+      float d = dist(x, y, Gcx, Gcy);
+      
+      float interAmount = map(d, 0, width / 2, 0, 1);
+      
+      color interColor = lerpColor(startColor, endColor, interAmount);
+      
+      stroke(interColor);
+      point(x, y);
+      
+      fill(255, 200, 200); // Fill color for squares set to pink
+      stroke(0); // Border color set to black
+      
+      //Every column and row, a rectangle will be drawn at (x,y)
+      rect(x, y, videoScale, videoScale);
+      
+    }
+  }
+      
   for( Block block : blocks){ 
     block.display(); //calls block's display method
   }
-  
+    
   
 }
+
+
+
 
 void mousePressed(){
   for (Block block : blocks) { // loops thru all blocks to check if mouse is over any of them
@@ -56,7 +100,7 @@ void mouseReleased(){
 class Block { //different class for the block
   int x, y, width, height; //variables to store pos and size of block
   boolean isDragging = false; //flag to indicate if its being dragged
-  boolean isColliding = true; //collision flag
+  boolean isColliding = false; //collision flag
   int offsetX, offsetY; //offset between the mouse pointer and block's top left corner during draggign
 
   Block(int x, int y, int width, int height) { 
@@ -85,7 +129,6 @@ boolean isCollidingWith(Block other) {
            y >= other.y + other.height);  // This block is below
 }
 
-
   void startDragging() { //starts dragging when clicked
     isDragging = true; //sets dragging to true
     offsetX = mouseX - x; // calcs horizontal offset between mouse n block
@@ -99,10 +142,9 @@ boolean isCollidingWith(Block other) {
       
       x = mouseX - offsetX; 
       y = mouseY - offsetY;
-      
+ 
       for (Block other : blocks) {
-      if (this != other && isCollidingWith(other)) {
-        // If colliding, revert to the previous position
+      if (this != other && isCollidingWith(other)) {// If colliding, revert to the previous position
         x = prevX;
         y = prevY;
         break;
@@ -116,23 +158,17 @@ boolean isCollidingWith(Block other) {
     isDragging = false;
     
   }
-  
 }
 
 class LBlock extends Block {
   LBlock(int x, int y) {
-    super(x, y, 100, 100); // Base width and height for an L-shaped block
+    super(x, y, 80, 80); // Base width and height for an L-shaped block
   }
 
   @Override
   void display() {
-    
-    fill(0, 0, 255); // Blue color for the LBlock
-
-    // Draw the vertical part of the L
-    rect(x, y, width / 2, height); 
-
-    // Draw the horizontal part of the L
-    rect(x, y + height / 2, width, height / 2);
+    fill(0, 0, 255); // Blue color
+    rect(x, y, width / 2, height); // Draw the vertical part of the L
+    rect(x, y + height / 2, width, height / 2); //horizontal part of L
   }
 }
