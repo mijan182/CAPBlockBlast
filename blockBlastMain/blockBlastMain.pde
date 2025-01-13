@@ -21,12 +21,15 @@ void setup() {
 }
 
 void draw() {
-  background(220);
+  
+    color startColor = color (255, 165, 0);
+  color endColor = color (0, 0, 255);
+  
+  background(23, 101, 159);
   float Gcx = width / 2;
   float Gcy = height / 2;
   
-  color startColor = color (255, 165, 0);
-  color endColor = color (0, 0, 255);
+
   
   int gOffsetX = (width - COLS * videoScale) / 2; //Horizontal aspect
   int gOffsetY = (height - ROWS * videoScale) / 2; //Vertical aspect
@@ -49,8 +52,8 @@ void draw() {
       stroke(interColor);
       point(x, y);
       
-      fill(255, 200, 200); // Fill color for squares set to pink
-      stroke(0); // Border color set to black
+      fill(50, 150, 250); // Fill color for squares set to pink
+      stroke(23, 101, 159); // Border color set to black
       
       //Every column and row, a rectangle will be drawn at (x,y)
       rect(x, y, videoScale, videoScale);
@@ -75,6 +78,8 @@ void mousePressed(){
       break; //stops checking other blocks after finding one
     }
   }
+  
+  
 }
 
 void mouseDragged(){
@@ -100,7 +105,6 @@ void mouseReleased(){
 class Block { //different class for the block
   int x, y, width, height; //variables to store pos and size of block
   boolean isDragging = false; //flag to indicate if its being dragged
-  boolean isColliding = false; //collision flag
   int offsetX, offsetY; //offset between the mouse pointer and block's top left corner during draggign
 
   Block(int x, int y, int width, int height) { 
@@ -164,11 +168,22 @@ class LBlock extends Block {
   LBlock(int x, int y) {
     super(x, y, 80, 80); // Base width and height for an L-shaped block
   }
+  
 
-  @Override
   void display() {
     fill(0, 0, 255); // Blue color
     rect(x, y, width / 2, height); // Draw the vertical part of the L
     rect(x, y + height / 2, width, height / 2); //horizontal part of L
   }
+  
+  void Grid(){ //border, use boolean to identify blocks
+  }
+  
+  void BlockGenLoop(){ //spawn blocks
+  
+  }
+  
+  void Score(){ //score of each block
+  }
+  
 }

@@ -15,7 +15,7 @@ ROWS = 10;
 }
   
 void draw() {
-float Gcx = width / 2;
+  float Gcx = width / 2;
   float Gcy = height / 2;
   
   color startColor = color (255, 165, 0);
