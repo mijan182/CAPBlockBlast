@@ -15,27 +15,25 @@ ROWS = 10;
 }
   
 void draw() {
-   float cx = width / 2;
-   float cy = height / 2;
-   
-   //Definign start & end colors for gradient
-   color startColor = color (255, 165, 0);
-   color endColor = color (0, 0, 255);
-   
-   int offsetX = (width - COLS * videoScale) / 2; //Horizontal aspect
-   int offsetY = (height - ROWS * videoScale) / 2; //Vertical aspect
-
-  //Loop for columns
+float Gcx = width / 2;
+  float Gcy = height / 2;
+  
+  color startColor = color (255, 165, 0);
+  color endColor = color (0, 0, 255);
+  
+  int gOffsetX = (width - COLS * videoScale) / 2; //Horizontal aspect
+  int gOffsetY = (height - ROWS * videoScale) / 2; //Vertical aspect
+  
   for (int c = 0; c < COLS; c++) {
     //Loop for rows
     for (int r = 0; r < ROWS; r++) {
       
        //Drawing a rectangle at (x,y)
-      int x = offsetX + c * videoScale;
-      int y = offsetY + r * videoScale;
+      int x = gOffsetX + c * videoScale;
+      int y = gOffsetY + r * videoScale;
       
       //Distance from setup center
-      float d = dist(x, y, cx, cy);
+      float d = dist(x, y, Gcx, Gcy);
       
       float interAmount = map(d, 0, width / 2, 0, 1);
       
@@ -49,7 +47,8 @@ void draw() {
       
       //Every column and row, a rectangle will be drawn at (x,y)
       rect(x, y, videoScale, videoScale);
-      }
+      
     }
+  }
   }
  
