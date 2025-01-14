@@ -22,6 +22,8 @@ void setup() {
 
 void draw() {
   
+
+  
     color startColor = color (255, 165, 0);
   color endColor = color (0, 0, 255);
   
@@ -176,7 +178,11 @@ class LBlock extends Block {
     rect(x, y + height / 2, width, height / 2); //horizontal part of L
   }
   
-  void Grid(){ //border, use boolean to identify blocks
+
+}
+
+class otherAssets {
+    void Grid(){ //border, use boolean to identify blocks
   }
   
   void BlockGenLoop(){ //spawn blocks
@@ -186,4 +192,10 @@ class LBlock extends Block {
   void Score(){ //score of each block
   }
   
+  // void StartUp(){ //score of each block
+  // background(23, 101, 159);
+  // noStroke();
+  // String gameName = "Block Blast!";
+  // text(gameName, 20, 50,50);
+  //}
 }
