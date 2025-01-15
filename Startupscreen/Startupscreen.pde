@@ -5,6 +5,8 @@ int butSize = 80;
 color butColor;
 color butHighlight;
 color currButColor;
+PFont TITLEfont;
+PFont AUTHORfont;
 
 void setup(){
   size(500,800);
@@ -17,10 +19,14 @@ void setup(){
 
 void draw(){
   background(23, 101, 159);
-   noStroke();
-   String gameName = "Block Blast!";
+   stroke(51,58,100);
+   strokeWeight(100);
+   TITLEfont = loadFont("Cubex-48.vlw");
+   String gameName = "Block \n Blast!";
    text(gameName, 210, 300);
-   textSize(50);
+   textSize(200);
+   textFont(TITLEfont);
+   
    
    if(startButOver){
      fill(butHighlight);

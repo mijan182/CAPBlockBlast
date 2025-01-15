@@ -180,22 +180,4 @@ class LBlock extends Block {
   
 
 }
-
-class otherAssets {
-    void Grid(){ //border, use boolean to identify blocks
-  }
   
-  void BlockGenLoop(){ //spawn blocks
-  
-  }
-  
-  void Score(){ //score of each block
-  }
-  
-  // void StartUp(){ //score of each block
-  // background(23, 101, 159);
-  // noStroke();
-  // String gameName = "Block Blast!";
-  // text(gameName, 20, 50,50);
-  //}
-}
