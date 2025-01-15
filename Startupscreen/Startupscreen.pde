@@ -1,43 +1,41 @@
-boolean startButOver = false;
-int Butx;
-int Buty;
-int butSize = 80;
-color butColor;
-color butHighlight;
-color currButColor;
+boolean GAMEstart = false;
 PFont TITLEfont;
 PFont AUTHORfont;
 
 void setup(){
   size(500,800);
-  butColor = color(20,100,150);
-  butHighlight = color(20,100,155);
-  Butx = width/2- butSize -10;
-  Buty = height/2- butSize -10;
-  ellipseMode(CENTER);
+  
+  AUTHORfont = loadFont("CenturyGothic-BoldItalic-48.vlw");
+  TITLEfont = loadFont("Cubex-48.vlw");
 }
 
 void draw(){
   background(23, 101, 159);
    stroke(51,58,100);
    strokeWeight(100);
-   TITLEfont = loadFont("Cubex-48.vlw");
+   
+   if (GAMEstart){
+     text("gameplay here",50,50);
+   }else{
+     textFont(TITLEfont);
+   textSize(50);
    String gameName = "Block \n Blast!";
    text(gameName, 210, 300);
-   textSize(200);
-   textFont(TITLEfont);
    
    
-   if(startButOver){
-     fill(butHighlight);
+   
+   textFont(AUTHORfont);
+   textSize(15);
+   String authorNames = "Brought to you by\n Faith & Jana\n\nPress enter to start!";
+   text(authorNames, 300, 375);
+   
    }
+
 }
 
-boolean startButOver(int bx, int by, int width, int height){
-  if(mouseX >= bx && mouseX <= bx+width &&
-    mouseY >= by && mouseY <= by+height){
-      return true;
-    }else{
-      return false;
-    }
-}
+   
+   void keyPressed(){
+     if(keyCode == ENTER){
+       GAMEstart = true;
+   }
+   }
