@@ -15,6 +15,9 @@ void setup() {
   blocks.add(new Block (160, 160,40,160)); //long block vert
   blocks.add(new LBlock(250,300));
   
+  fill(100, 150, 255);
+  noStroke();
+  
   COLS = 8;
   ROWS = 10;
 
@@ -92,9 +95,11 @@ void mouseDragged(){
   }
 }
 
-void mouseReleased(){
-  for (Block block : blocks) { //loops thru all to stop dragging any block that was being dragged
+void mouseReleased(){ {
+  for (Block block : blocks) {
+    if (block.isDragging)//loops thru all to stop dragging any block that was being dragged
     block.stopDragging(); //resets dragging state
+   }
   }
 }
 
@@ -154,14 +159,18 @@ boolean isCollidingWith(Block other) {
         x = prevX;
         y = prevY;
         break;
+        }
       }
-    }
-      
     }
   }
 
   void stopDragging() { //stops dragging when mouse released
     isDragging = false;
+    
+    int gridX = (width - COLS * videoScale) / 2;
+    int gridY = (height - ROWS * videoScale) / 2;
+    
+    x= round();
     
   }
 }
