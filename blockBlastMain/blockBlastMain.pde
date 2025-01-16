@@ -170,7 +170,13 @@ boolean isCollidingWith(Block other) {
     int gridX = (width - COLS * videoScale) / 2;
     int gridY = (height - ROWS * videoScale) / 2;
     
-    x= round();
+    x = round((x - gridX) / (float)videoScale) * videoScale + gridX;
+    y = round((y - gridY) / (float)videoScale) * videoScale + gridY;
+    
+    x = constrain(x, gridX, gridX + (COLS - 1) * videoScale);
+    y = constrain(y, gridY, gridY + (ROWS - 1) * videoScale);
+
+
     
   }
 }
