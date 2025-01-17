@@ -75,15 +75,15 @@ void draw() {
       }
     }else{
      textFont(TITLEfont);
-   textSize(50);
-   String gameName = "Block \n Blast!";
-   text(gameName, 210, 300);
+     textSize(50);
+     String gameName = "Block \n Blast!";
+     text(gameName, 210, 300);
     
     
     textFont(AUTHORfont);
-   textSize(15);
-   String authorNames = "Brought to you by\n Faith & Jana\n\nPress enter to start!";
-   text(authorNames, 300, 375);
+     textSize(15);
+     String authorNames = "Brought to you by\n Faith & Jana\n\nPress enter to start!";
+     text(authorNames, 300, 375);
      
     
     }
@@ -215,9 +215,11 @@ class LBlock extends Block {
   
 
   void display() {
-    fill(0, 0, 255); // Blue color
-    rect(x, y, width / 2, height); // Draw the vertical part of the L
-    rect(x, y + height / 2, width, height / 2); //horizontal part of L
+    fill(255, 236, 64); // Blue color
+    stroke(240,218,22);
+    rect(x, y, width/2, height/2); // Draw the vertical part of the L
+    rect(x +width/2, y, width/2, height/2); //horizontal part of L
+    rect(x + width/2, y+height/2,width/2,height/2);
   }
   
 
