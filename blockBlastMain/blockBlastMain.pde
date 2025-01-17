@@ -200,8 +200,8 @@ boolean isCollidingWith(Block other) {
     //x = round((x - gridX) / (float)videoScale) * videoScale + gridX;
     //y = round((y - gridY) / (float)videoScale) * videoScale + gridY;
     
-    //x = constrain(x, gridX, gridX + (COLS - 1) * videoScale);
-    //y = constrain(y, gridY, gridY + (ROWS - 1) * videoScale);
+    x = constrain(x, offsetX, offsetX + (COLS + 1) * videoScale); //block stay in place hopefully...
+    y = constrain(y, offsetY, offsetY + (ROWS + 1) * videoScale);
 
 
     
