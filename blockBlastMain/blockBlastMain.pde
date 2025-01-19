@@ -9,7 +9,7 @@ PFont TITLEfont;
 PFont AUTHORfont;
 
 //grid
-//int[][] GAMEgrid;
+int[][] GAMEgrid;
 
 
 void setup() {
@@ -33,7 +33,7 @@ void setup() {
   COLS = 8;
   ROWS = 10;
   
-  //GAMEgrid = new int[COLS][ROWS];//initializes GAMEgrid to zeros
+  GAMEgrid = new int[ROWS][COLS];//initializes GAMEgrid to zeros
 
 }
 
