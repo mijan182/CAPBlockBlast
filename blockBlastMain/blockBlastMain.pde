@@ -43,43 +43,71 @@ void draw() {
   
 
   if (GAMEstart){
-    float Gcx = width / 2;
-    float Gcy = height / 2;
+    drawGrid();
+    updateBlocks();
+    
+  } else {
+    showStartScreen();
+  }
+}
+    
+    //float Gcx = width / 2;
+    //float Gcy = height / 2;
+    
+void drawGrid() {
     int gOffsetX = (width - COLS * videoScale) / 2; //Horizontal aspect
     int gOffsetY = (height - ROWS * videoScale) / 2; //Vertical aspect
-    color startColor = color (255, 165, 0);
-    color endColor = color (0, 0, 255);
-     for (int c = 0; c < COLS; c++) {
-        //Loop for rows
-        for (int r = 0; r < ROWS; r++) {
-          
-           //Drawing a rectangle at (x,y)
-          int x = gOffsetX + c * videoScale;
-          int y = gOffsetY + r * videoScale;
-          
-          //Distance from setup center
-          float d = dist(x, y, Gcx, Gcy);
-          
-          float interAmount = map(d, 0, width / 2, 0, 1);
-          
-          color interColor = lerpColor(startColor, endColor, interAmount);
-          
-          stroke(interColor);
-          point(x, y);
-          
-          fill(50, 150, 250); // Fill color for squares set to pink
-          stroke(23, 101, 159); // Border color set to black
-          
-          //Every column and row, a rectangle will be drawn at (x,y)
-          rect(x, y, videoScale, videoScale);
-          
-        }
+    
+    for (int r = 0; r < ROWS; r++) {
+      for (int c = 0; c < COLS; c++) {
+        int x = gOffsetX + c * videoScale;
+        int y = gOffsetY + r * videoScale;
+        
+        fill(GAMEgrid[r][c] == 0 ? 50 : 200);
+        stroke(23, 101, 159);
+        rect(x, y, videoScale, videoScale);
       }
+    }
+}
+      
+    //color startColor = color (255, 165, 0);
+    //color endColor = color (0, 0, 255);
+    // for (int c = 0; c < COLS; c++) {
+    //    //Loop for rows
+    //    for (int r = 0; r < ROWS; r++) {
           
+    //       //Drawing a rectangle at (x,y)
+    //      int x = gOffsetX + c * videoScale;
+    //      int y = gOffsetY + r * videoScale;
+          
+    //      //Distance from setup center
+    //      float d = dist(x, y, Gcx, Gcy);
+          
+    //      float interAmount = map(d, 0, width / 2, 0, 1);
+          
+    //      color interColor = lerpColor(startColor, endColor, interAmount);
+          
+    //      stroke(interColor);
+    //      point(x, y);
+          
+    //      fill(50, 150, 250); // Fill color for squares set to pink
+    //      stroke(23, 101, 159); // Border color set to black
+          
+    //      //Every column and row, a rectangle will be drawn at (x,y)
+    //      rect(x, y, videoScale, videoScale);
+          
+    //    }
+    //  }
+          
+      
+      
+void updateBlocks() {
       for( Block block : blocks){ 
         block.display(); //calls block's display method
       }
-    }else{
+    }
+
+void showStartScreen() {
      textFont(TITLEfont);
      textSize(50);
      String gameName = "Block \n Blast!";
@@ -91,9 +119,7 @@ void draw() {
      String authorNames = "Brought to you by\n Faith & Jana\n\nPress enter to start!";
      text(authorNames, 300, 375);
      
-    
     }
-}
 
 
 
@@ -193,8 +219,8 @@ boolean isCollidingWith(Block other) {
   void stopDragging() { //stops dragging when mouse released
     isDragging = false;
     
-    int gridX = (width - COLS * videoScale) / 2;
-    int gridY = (height - ROWS * videoScale) / 2;
+    int gridX = round((float) (x - (width - COLS * videoScale) / 2) / videoScale);
+    int gridY = round((float)(y - (height - ROWS * videoScale) / 2) / videoScale);
     
     gridX = constrain(gridX, 0, COLS -1);
     gridY = constrain(gridY, 0, ROWS - 1);
@@ -230,7 +256,7 @@ class LBlock extends Block {
   
 
   void display() {
-    fill(255, 236, 64); // Blue color
+    fill(255, 236, 64); // Y color
     stroke(240,218,22);
     rect(x, y, width/2, height/2); // Draw the vertical part of the L
     rect(x +width/2, y, width/2, height/2); //horizontal part of L
