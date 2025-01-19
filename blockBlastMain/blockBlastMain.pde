@@ -193,21 +193,28 @@ boolean isCollidingWith(Block other) {
   void stopDragging() { //stops dragging when mouse released
     isDragging = false;
     
-    //int gridX = (width - COLS * videoScale) / 2;
-    //int gridY = (height - ROWS * videoScale) / 2;
+    int gridX = (width - COLS * videoScale) / 2;
+    int gridY = (height - ROWS * videoScale) / 2;
     
-    x = (x-offsetX)/videoScale;
-    x = x * videoScale + offsetX;
+    gridX = constrain(gridX, 0, COLS -1);
+    gridY = constrain(gridY, 0, ROWS - 1);
     
-    y = (y-offsetY)/videoScale;
-    y = y * videoScale + offsetY;
+    x = gridX * videoScale + (width - COLS * videoScale) / 2;
+    y = gridY * videoScale + (height - ROWS * videoScale) / 2;
+    
+    GAMEgrid[gridY][gridX] = 1;    
+    //x = (x-offsetX)/videoScale;
+    //x = x * videoScale + offsetX;
+    
+    //y = (y-offsetY)/videoScale;
+    //y = y * videoScale + offsetY;
     
     
     //x = round((x - gridX) / (float)videoScale) * videoScale + gridX;
     //y = round((y - gridY) / (float)videoScale) * videoScale + gridY;
     
-    x = constrain(x, offsetX, offsetX + (COLS + 1) * videoScale); //block stay in place hopefully...
-    y = constrain(y, offsetY, offsetY + (ROWS + 1) * videoScale);
+    //x = constrain(x, offsetX, offsetX + (COLS + 1) * videoScale); //block stay in place hopefully...
+    //y = constrain(y, offsetY, offsetY + (ROWS + 1) * videoScale);
 
   }
   
