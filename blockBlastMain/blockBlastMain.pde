@@ -8,26 +8,32 @@ boolean GAMEstart = false;
 PFont TITLEfont;
 PFont AUTHORfont;
 
+//grid
+//int[][] GAMEgrid;
+
 
 void setup() {
   size(500,800); //canvas size
+  
   
   AUTHORfont = loadFont("CenturyGothic-BoldItalic-48.vlw");
   TITLEfont = loadFont("Cubex-48.vlw");
   
   blocks = new ArrayList<Block>(); //new arraylist to hold blocks
-  blocks.add(new Block(80, 80, 80, 40)); //2 by 1
-  blocks.add(new Block (80,80,80,80)); //2 by2
-  blocks.add(new Block (40, 40, 40,40)); //simple square 1 by 1
-  blocks.add(new Block (160, 160,160,40)); // long block hori
-  blocks.add(new Block (160, 160,40,160)); //long block vert
-  blocks.add(new LBlock(250,300));
+  blocks.add(new Block(200, 650, 80, 40)); //2 by 1
+  //blocks.add(new Block (80,80,80,80)); //2 by2
+  //blocks.add(new Block (40, 40, 40,40)); //simple square 1 by 1
+  //blocks.add(new Block (160, 160,160,40)); // long block hori
+  //blocks.add(new Block (160, 160,40,160)); //long block vert
+  blocks.add(new LBlock(370,650));
   
   fill(100, 150, 255);
   noStroke();
   
   COLS = 8;
   ROWS = 10;
+  
+  //GAMEgrid = new int[COLS][ROWS];//initializes GAMEgrid to zeros
 
 }
 
@@ -203,9 +209,11 @@ boolean isCollidingWith(Block other) {
     x = constrain(x, offsetX, offsetX + (COLS + 1) * videoScale); //block stay in place hopefully...
     y = constrain(y, offsetY, offsetY + (ROWS + 1) * videoScale);
 
-
-    
   }
+  
+
+  
+  
 }
 
 class LBlock extends Block {
