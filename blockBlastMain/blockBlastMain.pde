@@ -1,8 +1,14 @@
 
 ArrayList<Block> blocks; //stores blocks in a list
 
-int videoScale = 40;
-int COLS, ROWS;
+//Game Constants
+final int SW = 500; //REMEMBER TO UPDATE SETUP>SIZE
+final int SH = 800;
+final int videoScale = 40;
+final int COLS = 8;
+final int ROWS = 10;
+final int gOffsetX = (SW - COLS * videoScale) / 2; //Horizontal aspect
+final int gOffsetY = (SH - ROWS * videoScale) / 2; //Vertical aspect
 
 boolean GAMEstart = false;
 PFont TITLEfont;
@@ -13,6 +19,8 @@ int[][] GAMEgrid;
 
 
 void setup() {
+
+  //REMEMBER TO UPDATE THE CONSTANTS
   size(500,800); //canvas size
   
   
@@ -28,8 +36,8 @@ void setup() {
   fill(100, 150, 255);
   noStroke();
   
-  COLS = 8;
-  ROWS = 10;
+  //COLS = 8;
+  //ROWS = 10;
   
   GAMEgrid = new int[ROWS][COLS];//initializes GAMEgrid to zeros
 
@@ -53,8 +61,6 @@ void draw() {
     //float Gcy = height / 2;
     
 void drawGrid() {
-    int gOffsetX = (width - COLS * videoScale) / 2; //Horizontal aspect
-    int gOffsetY = (height - ROWS * videoScale) / 2; //Vertical aspect
     
     for (int r = 0; r < ROWS; r++) {
       for (int c = 0; c < COLS; c++) {
@@ -258,14 +264,17 @@ boolean isCollidingWith(Block other) {
   void stopDragging() { //stops dragging when mouse released
     isDragging = false;
     
-    int gridX = round((float) (x - (width - COLS * videoScale) / 2) / videoScale);
-    int gridY = round((float)(y - (height - ROWS * videoScale) / 2) / videoScale);
+    int gridX = (int)(x - gOffsetX) / videoScale;
+    int gridY = (int)(y - gOffsetY) / videoScale;
+    //int gridY = round((float)(y - (height - ROWS * videoScale) / 2) / videoScale);
     
-    gridX = constrain(gridX, 0, COLS -1);
-    gridY = constrain(gridY, 0, ROWS - 1);
-    
-    x = gridX * videoScale + (width - COLS * videoScale) / 2;
-    y = gridY * videoScale + (height - ROWS * videoScale) / 2;
+    System.out.println(gridX + " " + gridY);
+    //gridX = constrain(gridX, 0, COLS -1);
+    //gridY = constrain(gridY, 0, ROWS - 1);
+    //System.out.println(gridX + " " + gridY);
+        
+    x = gridX * videoScale + gOffsetX;
+    y = gridY * videoScale + gOffsetY;
     
     GAMEgrid[gridY][gridX] = 1;    
 
