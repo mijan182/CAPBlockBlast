@@ -21,10 +21,8 @@ void setup() {
   
   blocks = new ArrayList<Block>(); //new arraylist to hold blocks
   blocks.add(new Block(200, 650, 80, 40)); //2 by 1
-  //blocks.add(new Block (80,80,80,80)); //2 by2
-  //blocks.add(new Block (40, 40, 40,40)); //simple square 1 by 1
-  //blocks.add(new Block (160, 160,160,40)); // long block hori
-  //blocks.add(new Block (160, 160,40,160)); //long block vert
+  blocks.add(new Block(200, 650, 80, 40)); //2 by 1
+  blocks.add(new LBlock(370,650));
   blocks.add(new LBlock(370,650));
   
   fill(100, 150, 255);
@@ -155,11 +153,52 @@ void mouseReleased(){ {
 void keyPressed(){
      if(keyCode == ENTER){
        GAMEstart = true;
-   }
+     }
+     
+   if (key == 'q') {
+    spawnBlock(); // Spawn a new block when 'q' is pressed
+  }
+  
+}
+void spawnBlock() {
+
+  int[] xPositions = {200, 370, 45};
+
+  shuffle(xPositions);
+
+  boolean[] usedX = new boolean[3];
+  
+  for (Block block : blocks) {
+    block.x = -1000;
+  }
+
+  for (int i = 0; i < 3; i++) {
+
+    int randomBlockIndex = (int) random(blocks.size());
+    Block randomBlock = blocks.get(randomBlockIndex);
+
+    for (int j = 0; j < xPositions.length; j++) {
+      if (!usedX[j]) {
+
+        randomBlock.x = xPositions[j];
+        randomBlock.y = 650; 
+        usedX[j] = true; 
+        break;
+      }
+    }
+  }
 }
 
 
 
+void shuffle(int[] arr) {
+  for (int i = arr.length - 1; i > 0; i--) {
+    int j = (int) random(i + 1);
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+}
 
 class Block { //different class for the block
   int x, y, width, height; //variables to store pos and size of block
@@ -229,18 +268,6 @@ boolean isCollidingWith(Block other) {
     y = gridY * videoScale + (height - ROWS * videoScale) / 2;
     
     GAMEgrid[gridY][gridX] = 1;    
-    //x = (x-offsetX)/videoScale;
-    //x = x * videoScale + offsetX;
-    
-    //y = (y-offsetY)/videoScale;
-    //y = y * videoScale + offsetY;
-    
-    
-    //x = round((x - gridX) / (float)videoScale) * videoScale + gridX;
-    //y = round((y - gridY) / (float)videoScale) * videoScale + gridY;
-    
-    //x = constrain(x, offsetX, offsetX + (COLS + 1) * videoScale); //block stay in place hopefully...
-    //y = constrain(y, offsetY, offsetY + (ROWS + 1) * videoScale);
 
   }
   
