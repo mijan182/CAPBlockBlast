@@ -29,9 +29,8 @@ void setup() {
   
   blocks = new ArrayList<Block>(); //new arraylist to hold blocks
   blocks.add(new Block(200, 650, 80, 40)); //2 by 1
-  blocks.add(new Block(200, 650, 80, 40)); //2 by 1
-  blocks.add(new LBlock(370,650));
-  blocks.add(new LBlock(370,650));
+  blocks.add(new longBlock(370,650));
+  blocks.add(new cubeBlock(45,650));
   
   fill(100, 150, 255);
   noStroke();
@@ -74,36 +73,7 @@ void drawGrid() {
     }
 }
       
-    //color startColor = color (255, 165, 0);
-    //color endColor = color (0, 0, 255);
-    // for (int c = 0; c < COLS; c++) {
-    //    //Loop for rows
-    //    for (int r = 0; r < ROWS; r++) {
-          
-    //       //Drawing a rectangle at (x,y)
-    //      int x = gOffsetX + c * videoScale;
-    //      int y = gOffsetY + r * videoScale;
-          
-    //      //Distance from setup center
-    //      float d = dist(x, y, Gcx, Gcy);
-          
-    //      float interAmount = map(d, 0, width / 2, 0, 1);
-          
-    //      color interColor = lerpColor(startColor, endColor, interAmount);
-          
-    //      stroke(interColor);
-    //      point(x, y);
-          
-    //      fill(50, 150, 250); // Fill color for squares set to pink
-    //      stroke(23, 101, 159); // Border color set to black
-          
-    //      //Every column and row, a rectangle will be drawn at (x,y)
-    //      rect(x, y, videoScale, videoScale);
-          
-    //    }
-    //  }
-          
-      
+                
       
 void updateBlocks() {
       for( Block block : blocks){ 
@@ -169,9 +139,8 @@ void keyPressed(){
 void spawnBlock() {
 
   int[] xPositions = {200, 370, 45};
-
   shuffle(xPositions);
-
+  
   boolean[] usedX = new boolean[3];
   
   for (Block block : blocks) {
@@ -268,6 +237,25 @@ boolean isCollidingWith(Block other) {
     int gridY = (int)(y - gOffsetY) / videoScale;
     //int gridY = round((float)(y - (height - ROWS * videoScale) / 2) / videoScale);
     
+    int prevX = x;
+    int prevY= y;
+    
+    if(gridX<0 || gridX >= COLS || gridY <0 || gridY >= ROWS){
+    x = prevX;
+    y = prevY;
+    return; //make sure it doesnt do the out of bounds error when placed on non grid area
+    }
+    
+    for (int i = 0; i < width/videoScale; i++){
+      for (int j = 0; j < height/videoScale; j++){
+        if (GAMEgrid[gridY+j][gridX+i] !=0){
+          x = prevX;
+          y= prevY;
+          return;
+        }
+      }
+    }
+    
     System.out.println(gridX + " " + gridY);
     //gridX = constrain(gridX, 0, COLS -1);
     //gridY = constrain(gridY, 0, ROWS - 1);
@@ -276,31 +264,63 @@ boolean isCollidingWith(Block other) {
     x = gridX * videoScale + gOffsetX;
     y = gridY * videoScale + gOffsetY;
     
-    GAMEgrid[gridY][gridX] = 1;    
-
+    for (int i = 0; i < width / videoScale; i++) {
+      for (int j = 0; j < height / videoScale; j++) {
+        GAMEgrid[gridY + j][gridX + i] = 1;
+      }
+    }
   }
-  
-
-  
-  
 }
 
 class LBlock extends Block {
   LBlock(int x, int y) {
-    super(x, y, 80, 80); // Base width and height for an L-shaped block
+    super(x, y, 2 * videoScale, 2* videoScale); // Base width and height for an L-shaped block
   }
   
 
   void display() {
     fill(255, 236, 64); // Y color
     stroke(240,218,22);
-    rect(x, y, width/2, height/2); // Draw the vertical part of the L
-    rect(x +width/2, y, width/2, height/2); //horizontal part of L
-    rect(x + width/2, y+height/2,width/2,height/2);
+    rect(x, y, videoScale, videoScale);
+    // Draw horizontal part of "L"
+    rect(x + videoScale, y, videoScale, videoScale);
+    // The bottom part of "L"
+    rect(x + videoScale, y + videoScale, videoScale, videoScale);
   }
-  
+ 
+}
 
+class cubeBlock extends Block {
+  cubeBlock(int x, int y) {
+    // Set to a 4x4 grid size
+    super(x, y, 2 * videoScale, 2 * videoScale);
+  }
+
+  void display() {
+    fill(255, 100, 100); // Cube color (you can change this to any color you like)
+    stroke(200, 50, 50); // Stroke for outlines
+    // Draw a 4x4 block (4 rows and 4 columns of small squares)
+    for (int i = 0; i < 2; i++) {
+      for (int j = 0; j < 2; j++) {
+        rect(x + i * videoScale, y + j * videoScale, videoScale, videoScale);
+      }
+    }
+  }
 }
 
 
-  
+class longBlock extends Block {
+  longBlock(int x, int y) {
+    // Set to a 1x4 size (1 wide and 4 tall)
+    super(x, y, videoScale, 4 * videoScale);
+  }
+
+  void display() {
+    fill(100, 255, 100); // Long block color (you can change this to any color you like)
+    stroke(50, 200, 50); // Stroke for outlines
+    // Draw a vertical 1x4 block (1 column and 4 rows)
+    for (int i = 0; i < 4; i++) {
+      rect(x, y + i * videoScale, videoScale, videoScale);
+    }
+  }
+}
