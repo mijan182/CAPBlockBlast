@@ -2,8 +2,8 @@
 ArrayList<Block> blocks; //stores blocks in a list
 
 //Game Constants
-final int SW = 500; //REMEMBER TO UPDATE SETUP>SIZE
-final int SH = 800;
+final int SW = 550; //REMEMBER TO UPDATE SETUP>SIZE
+final int SH = 850;
 final int videoScale = 40;
 final int COLS = 8;
 final int ROWS = 10;
@@ -21,21 +21,26 @@ int[][] GAMEgrid;
 void setup() {
 
   //REMEMBER TO UPDATE THE CONSTANTS
-  size(500,800); //canvas size
+  size(550,850); //canvas size
   
   
   AUTHORfont = loadFont("CenturyGothic-BoldItalic-48.vlw");
   TITLEfont = loadFont("Cubex-48.vlw");
   
   blocks = new ArrayList<Block>(); //new arraylist to hold blocks
-  blocks.add(new Block(200, 650, 80, 40)); //2 by 1
-  blocks.add(new longBlock(370,650));
-  blocks.add(new cubeBlock(45,650));
+  blocks.add(new Block(240, 650, 80, 40)); //2 by 1
+  blocks.add(new longBlock(420,650));
+  blocks.add(new cubeBlock(100,650));
   blocks.add(new Block(-1000, 650, 80, 40)); //2 by 1
   blocks.add(new longBlock(-1000,650));
   blocks.add(new cubeBlock(-1000,650));
   blocks.add(new lrgCubeBlock(-1000,650));
   blocks.add(new lrgCubeBlock(-1000,650));
+  blocks.add(new longBlock(-1000,650));
+  blocks.add(new cubeBlock(-1000,650));
+  blocks.add(new lrgCubeBlock(-1000,650));
+  blocks.add(new lrgCubeBlock(-1000,650));
+  blocks.add(new Block(-1000, 650, 80, 40)); //2 by 1
   
   fill(100, 150, 255);
   noStroke();
@@ -55,6 +60,8 @@ void draw() {
   if (GAMEstart){
     drawGrid();
     updateBlocks();
+    String instructions = "click 'q' to get more blocks!";
+     text(instructions, 100,100);
     
   } else {
     showStartScreen();
@@ -97,7 +104,7 @@ void showStartScreen() {
      textSize(15);
      String authorNames = "Brought to you by\n Faith & Jana\n\nPress enter to start!";
      text(authorNames, 300, 375);
-     
+
     }
 
 
@@ -143,7 +150,7 @@ void keyPressed(){
 }
 void spawnBlock() {
 
-  int[] xPositions = {200, 370, 45};
+  int[] xPositions = {225, 405, 80};
   shuffle(xPositions);
   
   boolean[] usedX = new boolean[3];
@@ -315,15 +322,15 @@ class cubeBlock extends Block {
 
 class lrgCubeBlock extends Block {
   lrgCubeBlock(int x, int y) {
-    // Set to a 4x4 grid size
-    super(x, y, 4 * videoScale, 4 * videoScale);
+    // Set to a 3x3 grid size
+    super(x, y, 3 * videoScale, 3 * videoScale);
   }
 
   void display() {
     fill(255, 234, 75); 
     stroke(234, 215, 69); // Stroke for outlines
-    for (int i = 0; i < 4; i++) {
-      for (int j = 0; j < 4; j++) {
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
         rect(x + i * videoScale, y + j * videoScale, videoScale, videoScale);
       }
     }
