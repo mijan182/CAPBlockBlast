@@ -187,6 +187,29 @@ void shuffle(int[] arr) {
   }
 }
 
+void checkAndClearRows(){
+    for(int r = 0;r < ROWS;r ++){
+      boolean isRowFull = true;
+      
+      for(int c = 0; c <COLS ; c++){
+        if (GAMEgrid[r][c]==0){
+          isRowFull = false;
+          break;
+        }
+      }
+      
+      if (isRowFull){
+        clearRow(r);
+      }
+    }
+}
+
+void clearRow(int row){
+  for(int c = 0; c<COLS;c++){
+    GAMEgrid[row][c] = 0;
+  }
+}
+
 class Block { //different class for the block
   int x, y, width, height; //variables to store pos and size of block
   boolean isDragging = false; //flag to indicate if its being dragged
@@ -282,6 +305,7 @@ boolean isCollidingWith(Block other) {
         GAMEgrid[gridY + j][gridX + i] = 1;
       }
     }
+    checkAndClearRows();
   }
 }
 
