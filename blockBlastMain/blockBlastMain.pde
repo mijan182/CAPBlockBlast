@@ -41,6 +41,9 @@ void setup() {
   blocks.add(new lrgCubeBlock(-1000,650));
   blocks.add(new lrgCubeBlock(-1000,650));
   blocks.add(new Block(-1000, 650, 80, 40)); //2 by 1
+  blocks.add(new oneBlock(-1000,650));
+  blocks.add(new oneBlock(-1000,650));
+  blocks.add(new oneBlock(-1000,650));
   
   fill(100, 150, 255);
   noStroke();
@@ -391,6 +394,22 @@ class longBlock extends Block {
     stroke(50, 200, 50); // Stroke for outlines
     // Draw a vertical 1x4 block (1 column and 4 rows)
     for (int i = 0; i < 4; i++) {
+      rect(x, y + i * videoScale, videoScale, videoScale);
+    }
+  }
+}
+
+class oneBlock extends Block {
+  oneBlock(int x, int y) {
+    // Set to a 1x4 size (1 wide and 4 tall)
+    super(x, y, videoScale, 1 * videoScale);
+  }
+
+  void display() {
+    fill(250, 160, 255); // Long block color (you can change this to any color you like)
+    stroke(233, 119, 240); // Stroke for outlines
+    // Draw a vertical 1x4 block (1 column and 4 rows)
+    for (int i = 0; i < 1; i++) {
       rect(x, y + i * videoScale, videoScale, videoScale);
     }
   }
