@@ -28,10 +28,10 @@ void setup() {
   TITLEfont = loadFont("Cubex-48.vlw");
   
   blocks = new ArrayList<Block>(); //new arraylist to hold blocks
-  blocks.add(new Block(240, 650, 80, 40)); //2 by 1
+  blocks.add(new Block(240, 650, 80, 40)); 
   blocks.add(new longBlock(420,650));
   blocks.add(new cubeBlock(100,650));
-  blocks.add(new Block(-1000, 650, 80, 40)); //2 by 1
+  blocks.add(new Block(-1000, 650, 80, 40));
   blocks.add(new longBlock(-1000,650));
   blocks.add(new cubeBlock(-1000,650));
   blocks.add(new lrgCubeBlock(-1000,650));
@@ -40,17 +40,13 @@ void setup() {
   blocks.add(new cubeBlock(-1000,650));
   blocks.add(new lrgCubeBlock(-1000,650));
   blocks.add(new lrgCubeBlock(-1000,650));
-  blocks.add(new Block(-1000, 650, 80, 40)); //2 by 1
+  blocks.add(new Block(-1000, 650, 80, 40)); 
   blocks.add(new oneBlock(-1000,650));
   blocks.add(new oneBlock(-1000,650));
   blocks.add(new oneBlock(-1000,650));
   
   fill(100, 150, 255);
   noStroke();
-  
-  //COLS = 8;
-  //ROWS = 10;
-  
   GAMEgrid = new int[ROWS][COLS];//initializes GAMEgrid to zeros
 
 }
@@ -58,21 +54,18 @@ void setup() {
 void draw() {
   background(23, 101, 159);
   
-  
-
   if (GAMEstart){
     drawGrid();
     updateBlocks();
     String instructions = "click 'q' to get more blocks!";
      text(instructions, 100,100);
+     
     
   } else {
     showStartScreen();
   }
 }
-    
-    //float Gcx = width / 2;
-    //float Gcy = height / 2;
+   
     
 void drawGrid() {
     
@@ -109,7 +102,6 @@ void showStartScreen() {
      text(authorNames, 300, 375);
 
     }
-
 
 
 
@@ -367,8 +359,7 @@ class cubeBlock extends Block {
 }
 
 class lrgCubeBlock extends Block {
-  lrgCubeBlock(int x, int y) {
-    // Set to a 3x3 grid size
+  lrgCubeBlock(int x, int y) {// Set to a 3x3 grid size
     super(x, y, 3 * videoScale, 3 * videoScale);
   }
 
@@ -401,14 +392,12 @@ class longBlock extends Block {
 
 class oneBlock extends Block {
   oneBlock(int x, int y) {
-    // Set to a 1x4 size (1 wide and 4 tall)
     super(x, y, videoScale, 1 * videoScale);
   }
 
   void display() {
-    fill(250, 160, 255); // Long block color (you can change this to any color you like)
-    stroke(233, 119, 240); // Stroke for outlines
-    // Draw a vertical 1x4 block (1 column and 4 rows)
+    fill(250, 160, 255); 
+    stroke(233, 119, 240); 
     for (int i = 0; i < 1; i++) {
       rect(x, y + i * videoScale, videoScale, videoScale);
     }
