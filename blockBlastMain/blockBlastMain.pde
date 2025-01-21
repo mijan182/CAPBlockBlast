@@ -31,6 +31,11 @@ void setup() {
   blocks.add(new Block(200, 650, 80, 40)); //2 by 1
   blocks.add(new longBlock(370,650));
   blocks.add(new cubeBlock(45,650));
+  blocks.add(new Block(-1000, 650, 80, 40)); //2 by 1
+  blocks.add(new longBlock(-1000,650));
+  blocks.add(new cubeBlock(-1000,650));
+  blocks.add(new lrgCubeBlock(-1000,650));
+  blocks.add(new lrgCubeBlock(-1000,650));
   
   fill(100, 150, 255);
   noStroke();
@@ -191,6 +196,7 @@ class Block { //different class for the block
 
   void display() { //renders blocks
     fill(100, 150, 200); //block color (for now)
+    stroke(60,146,229);
     rect(x, y, width, height); //draws rectangle
   }
 
@@ -299,7 +305,6 @@ class cubeBlock extends Block {
   void display() {
     fill(255, 100, 100); // Cube color (you can change this to any color you like)
     stroke(200, 50, 50); // Stroke for outlines
-    // Draw a 4x4 block (4 rows and 4 columns of small squares)
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 2; j++) {
         rect(x + i * videoScale, y + j * videoScale, videoScale, videoScale);
@@ -308,6 +313,22 @@ class cubeBlock extends Block {
   }
 }
 
+class lrgCubeBlock extends Block {
+  lrgCubeBlock(int x, int y) {
+    // Set to a 4x4 grid size
+    super(x, y, 4 * videoScale, 4 * videoScale);
+  }
+
+  void display() {
+    fill(255, 234, 75); 
+    stroke(234, 215, 69); // Stroke for outlines
+    for (int i = 0; i < 4; i++) {
+      for (int j = 0; j < 4; j++) {
+        rect(x + i * videoScale, y + j * videoScale, videoScale, videoScale);
+      }
+    }
+  }
+}
 
 class longBlock extends Block {
   longBlock(int x, int y) {
