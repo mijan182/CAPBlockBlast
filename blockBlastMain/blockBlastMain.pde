@@ -202,7 +202,21 @@ void checkAndClearRows(){
         clearRow(r);
       }
     }
+      for(int c = 0;c < COLS; c++){
+    boolean isColsFull = true;
+    
+    for(int r =0; r<ROWS; r++){
+        if (GAMEgrid[r][c]==0){
+          isColsFull = false;
+          break;
+    }
+  }
+  if (isColsFull){
+        clearCol(c);
+  }
 }
+}
+
 
 void clearRow(int row){
   for(int c = 0; c<COLS;c++){
@@ -210,6 +224,11 @@ void clearRow(int row){
   }
 }
 
+void clearCol(int col){
+  for(int r = 0; r<ROWS;r++){
+    GAMEgrid[r][col] = 0;
+  }
+}
 class Block { //different class for the block
   int x, y, width, height; //variables to store pos and size of block
   boolean isDragging = false; //flag to indicate if its being dragged
