@@ -10,6 +10,8 @@ final int ROWS = 10;
 final int gOffsetX = (SW - COLS * videoScale) / 2; //Horizontal aspect
 final int gOffsetY = (SH - ROWS * videoScale) / 2; //Vertical aspect
 
+int score = 0;
+
 boolean GAMEstart = false;
 PFont TITLEfont;
 PFont AUTHORfont;
@@ -56,6 +58,7 @@ void draw() {
   
   if (GAMEstart){
     drawGrid();
+    drawScore();
     updateBlocks();
     String instructions = "click 'q' to get more blocks!";
      text(instructions, 100,100);
@@ -183,6 +186,9 @@ void shuffle(int[] arr) {
 }
 
 void checkAndClearRows(){
+  int clearedRows = 0;
+  int clearedCols = 0;
+  
     for(int r = 0;r < ROWS;r ++){
       boolean isRowFull = true;
       
@@ -195,6 +201,7 @@ void checkAndClearRows(){
       
       if (isRowFull){
         clearRow(r);
+        clearedRows++;
       }
     }
       for(int c = 0;c < COLS; c++){
@@ -208,8 +215,13 @@ void checkAndClearRows(){
   }
   if (isColsFull){
         clearCol(c);
+        clearedCols++;
   }
 }
+  if (clearedRows > 0 && clearedCols > 0) {
+    score += 20; // Bonus points
+  }
+
 }
 
 
@@ -217,13 +229,30 @@ void clearRow(int row){
   for(int c = 0; c<COLS;c++){
     GAMEgrid[row][c] = 0;
   }
+  
+  score += 10;
 }
 
 void clearCol(int col){
   for(int r = 0; r<ROWS;r++){
     GAMEgrid[r][col] = 0;
   }
+  
+  score += 10;
 }
+
+void drawScore(){
+  fill(255);
+  textSize(20);
+  text("Score: " + score, 20,30);
+}
+
+void resetGame() {
+  score = 0;
+  GAMEgrid = new int[ROWS][COLS]; // Clear the grid
+}
+
+
 class Block { //different class for the block
   int x, y, width, height; //variables to store pos and size of block
   boolean isDragging = false; //flag to indicate if its being dragged
@@ -307,9 +336,6 @@ boolean isCollidingWith(Block other) {
     }
     
     System.out.println(gridX + " " + gridY);
-    //gridX = constrain(gridX, 0, COLS -1);
-    //gridY = constrain(gridY, 0, ROWS - 1);
-    //System.out.println(gridX + " " + gridY);
         
     x = gridX * videoScale + gOffsetX;
     y = gridY * videoScale + gOffsetY;
@@ -319,27 +345,31 @@ boolean isCollidingWith(Block other) {
         GAMEgrid[gridY + j][gridX + i] = 1;
       }
     }
+    
+    x = -1888; // removes blocks from the grid after placement
+    y = -1999;
+    
     checkAndClearRows();
   }
 }
 
-class LBlock extends Block {
-  LBlock(int x, int y) {
-    super(x, y, 2 * videoScale, 2* videoScale); // Base width and height for an L-shaped block
-  }
+//class LBlock extends Block {
+//  LBlock(int x, int y) {
+//    super(x, y, 2 * videoScale, 2* videoScale); // Base width and height for an L-shaped block
+//  }
   
 
-  void display() {
-    fill(255, 236, 64); // Y color
-    stroke(240,218,22);
-    rect(x, y, videoScale, videoScale);
-    // Draw horizontal part of "L"
-    rect(x + videoScale, y, videoScale, videoScale);
-    // The bottom part of "L"
-    rect(x + videoScale, y + videoScale, videoScale, videoScale);
-  }
+//  void display() {
+//    fill(255, 236, 64); // Y color
+//    stroke(240,218,22);
+//    rect(x, y, videoScale, videoScale);
+//    // Draw horizontal part of "L"
+//    rect(x + videoScale, y, videoScale, videoScale);
+//    // The bottom part of "L"
+//    rect(x + videoScale, y + videoScale, videoScale, videoScale);
+//  }
  
-}
+//} dream left unsolved sigh
 
 class cubeBlock extends Block {
   cubeBlock(int x, int y) {
@@ -348,7 +378,7 @@ class cubeBlock extends Block {
   }
 
   void display() {
-    fill(255, 100, 100); // Cube color (you can change this to any color you like)
+    fill(255, 100, 100); // color
     stroke(200, 50, 50); // Stroke for outlines
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 2; j++) {
@@ -381,9 +411,8 @@ class longBlock extends Block {
   }
 
   void display() {
-    fill(100, 255, 100); // Long block color (you can change this to any color you like)
-    stroke(50, 200, 50); // Stroke for outlines
-    // Draw a vertical 1x4 block (1 column and 4 rows)
+    fill(100, 255, 100); 
+    stroke(50, 200, 50); 
     for (int i = 0; i < 4; i++) {
       rect(x, y + i * videoScale, videoScale, videoScale);
     }
@@ -391,7 +420,7 @@ class longBlock extends Block {
 }
 
 class oneBlock extends Block {
-  oneBlock(int x, int y) {
+  oneBlock(int x, int y) { //1x1 block
     super(x, y, videoScale, 1 * videoScale);
   }
 
