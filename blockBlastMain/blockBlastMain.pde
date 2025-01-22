@@ -1,4 +1,3 @@
-
 ArrayList<Block> blocks; //stores blocks in a list
 
 //Game Constants
@@ -28,6 +27,7 @@ void setup() {
   
   AUTHORfont = loadFont("CenturyGothic-BoldItalic-48.vlw");
   TITLEfont = loadFont("Cubex-48.vlw");
+  
   
   blocks = new ArrayList<Block>(); //new arraylist to hold blocks
   blocks.add(new Block(240, 650, 80, 40)); 
@@ -62,6 +62,7 @@ void draw() {
     updateBlocks();
     String instructions = "click 'q' to get more blocks!";
      text(instructions, 100,100);
+
      
     
   } else {
@@ -327,7 +328,7 @@ boolean isCollidingWith(Block other) {
     
     for (int i = 0; i < width/videoScale; i++){
       for (int j = 0; j < height/videoScale; j++){
-        if (GAMEgrid[gridY+j][gridX+i] !=0){
+      if (gridY + j >= ROWS || gridX + i >= COLS || GAMEgrid[gridY + j][gridX + i] != 0) {
           x = prevX;
           y= prevY;
           return;
